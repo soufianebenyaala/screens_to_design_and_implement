@@ -16,9 +16,10 @@ class MyApp extends StatelessWidget {
       SystemUiOverlayStyle(statusBarColor: Colors.transparent)
     );
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Proxima Nova'),
       debugShowCheckedModeBanner: false,
       title: 'Task app',
-      home: HomePage(),
+      home: HomePage(showLayer: true,),
     );
   }
 }

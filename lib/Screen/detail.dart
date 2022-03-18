@@ -10,10 +10,17 @@ import 'Widgets/pharmacy.dart';
 import 'Widgets/product_details.dart';
 import 'Widgets/success_dialog.dart';
 
-class DetailScreen extends StatelessWidget {
+import './../service/user_service.dart';
+
+class DetailScreen extends StatefulWidget {
   final Item item;
   const DetailScreen({Key? key, required this.item}) : super(key: key);
 
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,20 +30,20 @@ class DetailScreen extends StatelessWidget {
           child: Wrap(
             runSpacing: 15,
             children: [
-              itemImage(item: item),
+              itemImage(item: widget.item),
               Column(
                 children: [
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        item.title!,
+                        widget.item.title!,
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                         textAlign: TextAlign.left,
                       )),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        item.text2! + " - " + item.mass!.toString() + 'mg',
+                        widget.item.text2! + " - " + widget.item.mass!.toString() + 'mg',
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                       )),
                 ],
@@ -73,6 +80,7 @@ class DetailScreen extends StatelessWidget {
             press: () {
               showDialog(context:context, builder: (context)
                   {
+                    UserService.currentBag.add(widget.item);
                     return SuccessDialog();
                   }
               );},
@@ -81,11 +89,15 @@ class DetailScreen extends StatelessWidget {
 
     );
   }
+
   AppBar _buildAppBar() {
     return AppBar(
-      leading: Icon(
-        Icons.arrow_back,
+      leading:  IconButton(
+        icon: Icon(Icons.arrow_back),
         color: Colors.black,
+        onPressed: ()=>{
+          Navigator.pop(context)
+        },
       ),
       backgroundColor: Colors.white,
       elevation: 0,

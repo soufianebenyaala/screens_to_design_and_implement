@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:screens_to_design_and_implement/Screen/Bag.dart';
+import 'package:screens_to_design_and_implement/Screen/HomePage.dart';
+import 'package:screens_to_design_and_implement/Screen/Store.dart';
 import 'package:screens_to_design_and_implement/constants/colors.dart';
 
-class SuccessDialog extends StatelessWidget {
+class SuccessDialog extends StatefulWidget {
   const SuccessDialog({
     Key? key,
+    Item
   }) : super(key: key);
 
+  @override
+  State<SuccessDialog> createState() => _SuccessDialogState();
+}
+
+class _SuccessDialogState extends State<SuccessDialog> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -51,7 +60,11 @@ class SuccessDialog extends StatelessWidget {
                     height: 40,
                     child: RaisedButton(
                       color: DROTurquoise,
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.push(context, 
+                          MaterialPageRoute(builder: (context) => HomePage(showLayer: false,))
+                        );
+                      },
                       child: Text(
                         "View bag",
                         style: TextStyle(color: Colors.white),
@@ -64,7 +77,9 @@ class SuccessDialog extends StatelessWidget {
                     height: 40,
                     child: RaisedButton(
                       color: DROTurquoise,
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
                       child: Text(
                         "Done",
                         style: TextStyle(color: Colors.white),
