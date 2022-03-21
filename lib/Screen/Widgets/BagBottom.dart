@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:screens_to_design_and_implement/Screen/Widgets/rounded_button.dart';
+import 'package:screens_to_design_and_implement/controller/cart_controller.dart';
 
-class BagBottom extends StatefulWidget {
-  const BagBottom({
-    Key? key,
-  }) : super(key: key);
+class BagBottom extends StatelessWidget {
+  final CartController controller;
+  BagBottom({Key? key, required this.controller}) : super(key: key);
 
-  @override
-  State<BagBottom> createState() => _BagBottomState();
-}
-
-class _BagBottomState extends State<BagBottom> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,13 +14,26 @@ class _BagBottomState extends State<BagBottom> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Total",style: TextStyle(fontSize: 20,color: Colors.white),),
-            Text("N2590",style: TextStyle(fontSize: 20,color: Colors.white),),
+            Text(
+              "Total",
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
+            Obx(() => controller.items.length != 0
+                ? Text(
+                    '${controller.total}',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  )
+                : Text(
+                    '0',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  )),
           ],
         ),
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
         RoundedButton(
-          borderRadius:50.0,
+          borderRadius: 50.0,
           icon: false,
           text: "Checkout",
           color: Colors.white,

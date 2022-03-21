@@ -5,7 +5,7 @@ import 'package:screens_to_design_and_implement/models/item.dart';
 
 
 class Items extends StatelessWidget {
-  final ItemsList = Item.generateItems();
+
   late final Item item;
 
   @override
@@ -13,7 +13,7 @@ class Items extends StatelessWidget {
     return Expanded(
         child: GridView.builder(
             padding: EdgeInsets.symmetric(horizontal: 15),
-            itemCount: ItemsList.length,
+            itemCount: Item.items.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 2,
@@ -21,7 +21,7 @@ class Items extends StatelessWidget {
               //childAspectRatio: 10,
             ),
             itemBuilder: (context, index) => ItemCard(
-                  item: ItemsList[index],
+                  index: index,
                 )
         )
     );
@@ -29,16 +29,16 @@ class Items extends StatelessWidget {
 }
 
 class ItemCard extends StatelessWidget {
-  final Item item;
+  final int index;
   //final Function press;
-  const ItemCard({Key? key, required this.item}) : super(key: key);
+  const ItemCard({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DetailScreen(item: item)))
+            MaterialPageRoute(builder: (context) => DetailScreen(index: index)))
       },
       child: Card(
           elevation: 3.0,
@@ -46,7 +46,7 @@ class ItemCard extends StatelessWidget {
             children: <Widget>[
               Container(
                 child: Image(
-                  image: NetworkImage(item.image!),
+                  image: NetworkImage(Item.items[index].image!),
                   height: 150,
                   fit: BoxFit.fitWidth,
                 ),
@@ -55,7 +55,7 @@ class ItemCard extends StatelessWidget {
                 margin: const EdgeInsets.only(left: 5.0),
                 alignment: Alignment.topLeft,
                 child: Text(
-                  item.title!,
+                  Item.items[index].title!,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                 ),
               ),
@@ -63,7 +63,7 @@ class ItemCard extends StatelessWidget {
                 margin: const EdgeInsets.only(left: 5.0),
                 alignment: Alignment.topLeft,
                 child: Text(
-                  item.text1!,
+                  Item.items[index].text1!,
                   style: TextStyle(color: Grey, fontSize: 10),
                 ),
               ),
@@ -71,7 +71,7 @@ class ItemCard extends StatelessWidget {
                 margin: const EdgeInsets.only(left: 5.0),
                 alignment: Alignment.topLeft,
                 child: Text(
-                  item.text2! + " - " + item.mass!.toString() + 'mg',
+                  Item.items[index].text2! + " - " + Item.items[index].mass!.toString() + 'mg',
                   style: TextStyle(color: Grey, fontSize: 10),
                 ),
               ),
@@ -86,7 +86,7 @@ class ItemCard extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Grey, borderRadius: BorderRadius.circular(15.0)),
                     child: Text(
-                      "N" + item.code.toString(),
+                      "N" + Item.items[index].price.toString(),
                       style: TextStyle(fontSize: 10, color: Colors.white),
                     ),
                   ))
@@ -143,7 +143,7 @@ Widget _buildItem(Item item) {
                 decoration: BoxDecoration(
                     color: Grey, borderRadius: BorderRadius.circular(15.0)),
                 child: Text(
-                  "N" + item.code.toString(),
+                  "N" + item.price.toString(),
                   style: TextStyle(fontSize: 10, color: Colors.white),
                 ),
               ))

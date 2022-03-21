@@ -1,16 +1,19 @@
 
 import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:screens_to_design_and_implement/constants/colors.dart';
-import 'package:screens_to_design_and_implement/service/user_service.dart';
+import 'package:screens_to_design_and_implement/controller/cart_controller.dart';
 
 class subHeader extends StatelessWidget {
-  const subHeader({
+    
+   subHeader({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CartController());
     return Container(
       color: DarkPurple,
       child: BackdropSubHeader(
@@ -31,8 +34,8 @@ class subHeader extends StatelessWidget {
       
       ),
       trailing: Container(
-          child: Text(
-            UserService.currentBag.length!.toString(),
+          child: Text(controller.items.length.toString(),
+            //controller.items.length.toString(),
             style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),
           ),
           decoration: BoxDecoration(
