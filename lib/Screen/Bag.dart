@@ -26,6 +26,14 @@ class _BagState extends State<Bag> {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             color: DarkPurple,
             child: Column(children: [
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(20),
+                    color: Colors.white
+                    ),
+                child: Text("Tap on item for add, remove, delete options",style: TextStyle(fontSize: 15),),
+              ),
               Obx(
                 () => Container(
                   child: ListView.builder(

@@ -6,7 +6,7 @@ class CartController extends GetxController {
   //var show = false;
 
   void addItem(Item item, int quantity) {
-if (_items.containsKey(item)) {
+if (_items.containsKey(item) && quantity!=null ) {
       _items[item] =quantity;
     } else {
       _items[item] = 1;
